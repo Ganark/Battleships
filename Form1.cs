@@ -22,11 +22,6 @@ namespace Battleships
 			Instance = this;
 		}
 
-		private void Form1_Load(object sender, EventArgs e)
-		{
-
-		}
-
 		private void button1_Click(object sender, EventArgs e)
 		{
 			Program.Play();
@@ -46,8 +41,8 @@ namespace Battleships
 	DataGridViewCellEventArgs e)
 		{
 			DataGridViewButtonCell buttonCell = (DataGridViewButtonCell)dataGridView1.CurrentCell;
-			if (Board[e.RowIndex, e.ColumnIndex].Equals(true))
-			{
+			if (Board[e.RowIndex, e.ColumnIndex].Equals(true)) //read cell data
+			{//if hit, send to appropriate method
 				dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "HIT";
 				dataGridView1.CurrentCell.Style.BackColor = Color.Red;
 				buttonCell.Style.SelectionBackColor= Color.Red;
@@ -60,16 +55,6 @@ namespace Battleships
 				buttonCell.Style.SelectionBackColor = Color.White;
 				textBox1.Text="MISS!";
 			}
-		}
-
-		private void textBox2_TextChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void textBox1_TextChanged(object sender, EventArgs e)
-		{
-
 		}
 	}
 }

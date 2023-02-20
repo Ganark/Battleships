@@ -70,7 +70,6 @@
 			this.textBox1.TabIndex = 2;
 			this.textBox1.Text = "Press Start/Restart button to begin";
 			this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
 			// textBox2
 			// 
@@ -85,7 +84,6 @@
 			this.textBox2.Text = "How to win:\r\nSink 2 enemy Destroyers, size 4x1\r\nSink 1 enemy Battleship, size 5x1" +
     "";
 			this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
 			// 
 			// Form1
 			// 
@@ -98,7 +96,6 @@
 			this.Controls.Add(this.button1);
 			this.Name = "Form1";
 			this.Text = "Battleships";
-			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();

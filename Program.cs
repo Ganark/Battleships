@@ -47,18 +47,18 @@ namespace Battleships
 			
 			horizontal = rnd.Next(0, 2);//pick alignment
 
-			if (horizontal == 1)//check if available and draw
+			if (horizontal == 1)
 			{
 				spotX = rnd.Next(0, 7);//pick first square
 				spotY = rnd.Next(0, 10);
 				for (int i = 0; i < 4; i++)
 				{
-					if (Board[spotX + i, spotY] == true)
+					if (Board[spotX + i, spotY] == true)//if a potential spot is taken, run again
 					{
 						return DestroyerSetup();
 					}
 				}
-				for (int j = 0; j < 4; j++)
+				for (int j = 0; j < 4; j++)//save ship in board and ship list to check if sunk
 				{
 					int X = spotX + j;
 					int Y = spotY;
@@ -69,7 +69,7 @@ namespace Battleships
 			}
 			else
 			{
-				spotX = rnd.Next(0, 10);//pick first square
+				spotX = rnd.Next(0, 10);
 				spotY = rnd.Next(0, 7);
 				for (int i = 0; i < 4; i++)
 				{
@@ -96,11 +96,11 @@ namespace Battleships
 			int horizontal;
 			List<string> returnList = new List<string>();
 
-			horizontal = rnd.Next(0, 2);//pick alignment
+			horizontal = rnd.Next(0, 2);
 
-			if (horizontal == 1)//check if available and draw
+			if (horizontal == 1)
 			{
-				spotX = rnd.Next(0, 6);//pick first square
+				spotX = rnd.Next(0, 6);
 				spotY = rnd.Next(0, 10);
 				for (int i = 0; i < 5; i++)
 				{
@@ -120,7 +120,7 @@ namespace Battleships
 			}
 			else
 			{
-				spotX = rnd.Next(0, 10);//pick first square
+				spotX = rnd.Next(0, 10);
 				spotY = rnd.Next(0, 6);
 				for (int i = 0; i < 5; i++)
 				{
@@ -149,7 +149,7 @@ namespace Battleships
 
 		private static void DrawArea()
 		{
-			DataGridView gridView = Form1.Instance.gridView();
+			DataGridView gridView = Form1.Instance.gridView();//load from instance and prepare
 			gridView.Enabled = true;
 			gridView.AllowUserToAddRows = false;
 			gridView.Rows.Clear();
@@ -157,7 +157,7 @@ namespace Battleships
 			gridView.Refresh();
 			gridView.ColumnCount = 0;
 			gridView.RowCount = 0;
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 10; i++)//fill with column headers and buttons for controls better for user
 			{
 				DataGridViewButtonColumn button = new DataGridViewButtonColumn();
 				{
@@ -170,7 +170,7 @@ namespace Battleships
 					gridView.Columns.Insert(i, button);
 				}
 			}
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 10; i++)//fill rows and its headers
 			{
 				DataGridViewRow row = new DataGridViewRow();
 				row.CreateCells(gridView);
@@ -194,7 +194,7 @@ namespace Battleships
 				totalRowHeight += row.Height;
 			}
 
-			if (totalRowHeight < gridView.Height)
+			if (totalRowHeight < gridView.Height) //better sizing
 			{
 				totalRowHeight = gridView.Height;
 				totalRowHeight -= gridView.ColumnHeadersHeight;
@@ -207,19 +207,18 @@ namespace Battleships
 				gridView.Refresh();
 
 			}
-			Form1.Instance.readShipData(Board);
+			Form1.Instance.readShipData(Board);//send data to form
 		}
 		public static void Play()
 		{
-			GC.Collect();
-			BoardSetup();
-			ShipCreator();
-			DrawArea();
+			BoardSetup();//create empty data for board
+			ShipCreator();//create data for ships
+			DrawArea();//create game board
 		}
 
 		public static string HitScan(DataGridViewCellEventArgs data)
 		{
-			string shotCoordinates = data.RowIndex.ToString() + " " + data.ColumnIndex.ToString();
+			string shotCoordinates = data.RowIndex.ToString() + " " + data.ColumnIndex.ToString();//if hit, check which ship
 			if (Destroyer1.Contains(shotCoordinates))
 			{
 				return SinkWinCheck(0, shotCoordinates);
@@ -234,7 +233,7 @@ namespace Battleships
 			}
 			else
 			{
-				return "MISS!";
+				return "MISS!";//if part already hit, nothing to hit, so miss
 			}
 		}
 		public static string SinkWinCheck(int data, string shotCoordinates)
@@ -242,10 +241,10 @@ namespace Battleships
 			switch (data)
 			{
 				case 0:
-					Destroyer1.Remove(shotCoordinates);
-					if (!Destroyer1.Any())
+					Destroyer1.Remove(shotCoordinates);//remove ship part from memory
+					if (!Destroyer1.Any())//if no more ship parts, sunk
 					{
-						if (!Destroyer1.Any() && !Destroyer2.Any() && !Battleship.Any())
+						if (!Destroyer1.Any() && !Destroyer2.Any() && !Battleship.Any())//if no more ships, you win
 						{
 							Form1.Instance.gridView().Enabled = false;
 							return "Destroyer sunk! You win!";
